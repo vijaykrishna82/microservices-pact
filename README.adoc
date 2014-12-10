@@ -1,0 +1,9 @@
+= Spring Boot Microservices + Pact-JVM
+Matt Stine <mstine@pivotal.io>
+
+This project contains a *very simple* demo of using consumer-driven contracts to verify the interactions between microservices.
+It leverages http://projects.spring.io/spring-boot[Spring Boot] for both the producer and consumer services.
+
+Testing is achieved using the https://github.com/DiUS/pact-jvm[pact-jvm] project, which is a JVM port of the original https://github.com/realestate-com-au/pact[pact].
+
+
