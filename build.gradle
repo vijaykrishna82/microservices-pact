@@ -49,7 +49,7 @@ project(':microservices-pact-provider') {
   apply plugin: 'au.com.dius.pact'
 
   jar {
-      baseName = 'microservices-pact-consumer'
+      baseName = 'microservices-pact-provider'
       version = '0.0.1-SNAPSHOT'
   }
 
@@ -57,7 +57,7 @@ project(':microservices-pact-provider') {
       serviceProviders {
           fooProvider {
               hasPactWith('fooConsumer') {
-                  pactFile = file('target/pacts/Foo_Consumer-Foo_Provider.json')
+                  pactFile = file("${project(':microservices-pact-consumer').projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
               }
           }
       }
