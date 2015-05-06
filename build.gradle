@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.0.RC2'
+        springBootVersion = '1.2.3.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -15,53 +15,63 @@ buildscript {
 }
 
 allprojects {
-  apply plugin: 'java'
-  apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'idea'
 
-  repositories {
-      mavenCentral()
-      maven { url "https://repo.spring.io/snapshot" }
-      maven { url "https://repo.spring.io/milestone" }
-  }
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
 }
 
 subprojects {
-  apply plugin: 'spring-boot'
+    apply plugin: 'spring-boot'
 
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-  dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("au.com.dius:pact-jvm-consumer-junit_2.11:2.1.13")
-  }
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-web")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("au.com.dius:pact-jvm-consumer-junit_2.11:2.1.13")
+    }
 }
 
 project(':microservices-pact-consumer') {
-  jar {
-      baseName = 'microservices-pact-consumer'
-      version = '0.0.1-SNAPSHOT'
-  }
+    jar {
+        baseName = 'microservices-pact-consumer'
+        version = '0.0.1-SNAPSHOT'
+    }
 }
 
 project(':microservices-pact-provider') {
-  apply plugin: 'au.com.dius.pact'
+    apply plugin: 'au.com.dius.pact'
 
-  jar {
-      baseName = 'microservices-pact-provider'
-      version = '0.0.1-SNAPSHOT'
-  }
+    jar {
+        baseName = 'microservices-pact-provider'
+        version = '0.0.1-SNAPSHOT'
+    }
 
-  pact {
-      serviceProviders {
-          fooProvider {
-              hasPactWith('fooConsumer') {
-                  pactFile = file("${project(':microservices-pact-consumer').projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
-              }
-          }
-      }
-  }
+    /*
+     * Download file from Pact Broker
+     */
+    task setup << {
+        ant.mkdir(dir: "${project.projectDir}/target/pacts")
+        ant.get(src: "http://localhost:9000/pacts/provider/Foo_Provider/consumer/Foo_Consumer/version/1.0.0",
+                dest: "${project.projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
+    }
+
+    pact {
+        serviceProviders {
+            fooProvider {
+                startProviderTask = 'setup'
+                hasPactWith('fooConsumer') {
+                    pactFile = file("${project.projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
+                }
+            }
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
