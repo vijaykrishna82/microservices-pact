@@ -2,5 +2,5 @@
 applications:
 - name: foo-provider
   memory: 512M
-  path: microservices-pact-provider-0.0.1-SNAPSHOT.jar
+  path: ../../microservices-pact-provider-0.0.1-SNAPSHOT.jar
   instances: 1
