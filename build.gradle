@@ -75,7 +75,7 @@ project(':microservices-pact-provider') {
         classpath += sourceSets.main.runtimeClasspath
         main = 'io.pivotal.microservices.pact.provider.Application'
         doLast {
-            Thread.sleep(5000)
+            Thread.sleep(10000)
         }
     }
 
