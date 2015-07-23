@@ -5,6 +5,8 @@ inputs:
   path: .
 - name: pact
   path: .
+- name: foo-provider-version
+  path: .
 params:
   TERM: dumb
   PACT_FILE: ./Foo_Consumer-Foo_Provider.json
