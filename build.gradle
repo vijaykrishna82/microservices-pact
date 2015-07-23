@@ -62,7 +62,7 @@ project(':microservices-pact-provider') {
     }
 
     task startProvider(type: com.github.jengelman.gradle.plugins.processes.tasks.JavaFork) {
-        classpath = files('microservices-pact-provider/build/libs/microservices-pact-provider-0.0.1-SNAPSHOT.jar')
+        classpath = files("microservices-pact-provider/build/libs/microservices-pact-provider-${version}.jar")
         classpath += sourceSets.main.runtimeClasspath
         main = 'io.pivotal.microservices.pact.provider.Application'
         doLast {
