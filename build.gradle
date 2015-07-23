@@ -3,16 +3,20 @@ buildscript {
         springBootVersion = '1.2.3.RELEASE'
     }
     repositories {
+        jcenter()
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
 
     }
     dependencies {
+        classpath('com.github.jengelman.gradle.plugins:gradle-processes:0.3.0')
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath 'au.com.dius:pact-jvm-provider-gradle_2.11:2.1.13'
     }
 }
+
+
 
 allprojects {
     apply plugin: 'java'
@@ -45,29 +49,36 @@ project(':microservices-pact-consumer') {
     }
 }
 
+
 project(':microservices-pact-provider') {
     apply plugin: 'au.com.dius.pact'
+    apply plugin: 'com.github.johnrengelman.processes'
+
+    task startProvider(type: com.github.jengelman.gradle.plugins.processes.tasks.JavaFork) {
+      classpath = files('microservices-pact-provider/build/libs/microservices-pact-provider-0.0.1-SNAPSHOT.jar')
+      classpath += sourceSets.main.runtimeClasspath
+      main = 'io.pivotal.microservices.pact.provider.Application'
+      doLast {
+        Thread.sleep(5000)
+      }
+    }
+
+    task stopProvider << {
+      startProvider.processHandle.abort()
+    }
 
     jar {
         baseName = 'microservices-pact-provider'
         version = '0.0.1-SNAPSHOT'
     }
 
-    /*
-     * Download file from Pact Broker
-     */
-    task setup << {
-        ant.mkdir(dir: "${project.projectDir}/target/pacts")
-        ant.get(src: "http://localhost:9000/pacts/provider/Foo_Provider/consumer/Foo_Consumer/version/1.0.0",
-                dest: "${project.projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
-    }
-
     pact {
         serviceProviders {
             fooProvider {
-                startProviderTask = 'setup'
+                startProviderTask = 'startProvider'
+                terminateProviderTask = 'stopProvider'
                 hasPactWith('fooConsumer') {
-                    pactFile = file("${project.projectDir}/target/pacts/Foo_Consumer-Foo_Provider.json")
+                    pactFile = file(System.getenv("PACT_FILE"))
                 }
             }
         }
