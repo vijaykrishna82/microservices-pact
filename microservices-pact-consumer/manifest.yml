@@ -3,4 +3,4 @@ applications:
 - name: foo-consumer
   memory: 512M
   instances: 1
-  path: ../../foo-provider/microservices-pact-consumer-${version}.jar
+  path: ../../../foo-provider/microservices-pact-consumer-${version}.jar
