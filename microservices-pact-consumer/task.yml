@@ -3,7 +3,7 @@ platform: linux
 image: docker:///java#8
 inputs:
 - name: microservices-pact
-  path: .
+- name: foo-consumer-version
 params:
     TERM: dumb
 run:
