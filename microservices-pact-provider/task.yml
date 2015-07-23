@@ -4,7 +4,7 @@ inputs:
 - name: microservices-pact
   path: .
 - name: pact
-  path: ./Foo_Consumer-Foo_Provider.json
+  path: .
 params:
   TERM: dumb
   PACT_FILE: ./Foo_Consumer-Foo_Provider.json
