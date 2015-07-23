@@ -1,0 +1,15 @@
+platform: linux
+image: docker:///java#8
+inputs:
+- name: microservices-pact
+  path: .
+- name: pact
+  path: ./Foo_Consumer-Foo_Provider.json
+params:
+  TERM: dumb
+  PACT_FILE: ./Foo_Consumer-Foo_Provider.json
+run:
+   path: ./gradlew
+   args:
+   - assemble
+   - pactVerify
