@@ -45,7 +45,10 @@ subprojects {
 project(':microservices-pact-consumer') {
     jar {
         baseName = 'microservices-pact-consumer'
-        version = '0.0.1-SNAPSHOT'
+    }
+
+    jar.doFirst {
+        version = new File('../foo-consumer-version/number').text
     }
 }
 
@@ -55,25 +58,28 @@ project(':microservices-pact-provider') {
     apply plugin: 'com.github.johnrengelman.processes'
 
     ext {
-      pactFilePath = "$System.env.PACT_FILE" 
+        pactFilePath = "$System.env.PACT_FILE"
     }
 
     task startProvider(type: com.github.jengelman.gradle.plugins.processes.tasks.JavaFork) {
-      classpath = files('microservices-pact-provider/build/libs/microservices-pact-provider-0.0.1-SNAPSHOT.jar')
-      classpath += sourceSets.main.runtimeClasspath
-      main = 'io.pivotal.microservices.pact.provider.Application'
-      doLast {
-        Thread.sleep(5000)
-      }
+        classpath = files('microservices-pact-provider/build/libs/microservices-pact-provider-0.0.1-SNAPSHOT.jar')
+        classpath += sourceSets.main.runtimeClasspath
+        main = 'io.pivotal.microservices.pact.provider.Application'
+        doLast {
+            Thread.sleep(5000)
+        }
     }
 
     task stopProvider << {
-      startProvider.processHandle.abort()
+        startProvider.processHandle.abort()
     }
 
     jar {
         baseName = 'microservices-pact-provider'
-        version = '0.0.1-SNAPSHOT'
+    }
+
+    jar.doFirst {
+        version = new File('../foo-provider-version/number').text
     }
 
     pact {
