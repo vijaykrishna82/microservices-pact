@@ -2,5 +2,4 @@
 applications:
 - name: foo-consumer
   memory: 512M
-  path: ../../foo-consumer/microservices-pact-consumer-0.0.1-SNAPSHOT.jar
   instances: 1
