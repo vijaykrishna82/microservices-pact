@@ -24,6 +24,11 @@ public class Application {
         return consumerPort.foos();
     }
 
+    @RequestMapping("/")
+    public String hello() {
+        return "Hello World!";
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
