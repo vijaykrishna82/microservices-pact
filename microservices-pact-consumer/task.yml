@@ -6,6 +6,7 @@ inputs:
 - name: foo-consumer-version
 params:
     TERM: dumb
+    VERSION_FILE_PATH: foo-consumer-version
 run:
   path: microservices-pact/gradlew
   args:

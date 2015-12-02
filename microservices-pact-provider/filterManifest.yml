@@ -3,12 +3,13 @@ platform: linux
 image: docker:///java#8
 inputs:
 - name: microservices-pact
-  path: .
 - name: foo-provider-version
-  path: .
 params:
     TERM: dumb
+    VERSION_FILE_PATH: foo-provider-version
 run:
-  path: ./gradlew
+  path: microservices-pact/gradlew
   args:
-  - manifestFilter
+  - -b
+  - microservices-pact/build.gradle
+  - :microservices-pact-provider:manifestFilter
