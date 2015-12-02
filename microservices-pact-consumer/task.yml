@@ -9,7 +9,7 @@ inputs:
 params:
     TERM: dumb
 run:
-  path: cat
-  args:
-  - number
+  path: ls
+  #args:
+  #- number
   #- assemble
