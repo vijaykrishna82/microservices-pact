@@ -13,3 +13,6 @@ run:
   - -b
   - microservices-pact/build.gradle
   - :microservices-pact-provider:manifestFilter
+outputs:
+  - name: versioned-manifest
+    path: microservices-pact/microservices-pact-provider/versioned-manifest
