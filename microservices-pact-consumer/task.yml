@@ -9,5 +9,7 @@ params:
 run:
   path: microservices-pact/gradlew
   args:
+  - -b
+  - microservices-pact/build.gradle
   - :microservices-pact-consumer:test
   - :microservices-pact-consumer:assemble
