@@ -2,16 +2,15 @@ platform: linux
 image: docker:///java#8
 inputs:
 - name: microservices-pact
-  path: .
 - name: pact
-  path: .
 - name: foo-provider-version
-  path: .
 params:
   TERM: dumb
-  PACT_FILE: ./Foo_Consumer-Foo_Provider.json
+  PACT_FILE: pact/Foo_Consumer-Foo_Provider.json
 run:
-   path: ./gradlew
+   path: microservices-pact/gradlew
    args:
-   - assemble
-   - pactVerify
+   - -b
+   - microservices-pact/build.gradle
+   - :microservices-pact-provider:assemble
+   - :microservices-pact-provider:pactVerify
