@@ -4,8 +4,8 @@ image: docker:///java#8
 inputs:
 - name: microservices-pact
   path: .
-- name: foo-consumer-version
-  path: .
+#- name: foo-consumer-version
+#  path: .
 params:
     TERM: dumb
 run:
