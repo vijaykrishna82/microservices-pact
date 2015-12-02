@@ -31,7 +31,7 @@ allprojects {
     }
 
     task loadVersion {
-        ext.myVersion = new File("${VERSION_FILE_PATH}/number").text
+        ext.myVersion = new File("${versionFilePath}/number").text
     }
 
     task manifestFilter(type: Copy) {
@@ -61,7 +61,7 @@ project(':microservices-pact-consumer') {
     }
 
     jar.doFirst {
-        version = new File("${VERSION_FILE_PATH}/number").text
+        version = new File("${versionFilePath}/number").text
     }
 }
 
@@ -92,7 +92,7 @@ project(':microservices-pact-provider') {
     }
 
     jar.doFirst {
-        version = new File("${VERSION_FILE_PATH}/number").text
+        version = new File("${versionFilePath}/number").text
     }
 
     pact {
