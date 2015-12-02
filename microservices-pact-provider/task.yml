@@ -6,7 +6,7 @@ inputs:
 - name: foo-provider-version
 params:
   TERM: dumb
-  PACT_FILE: pact/Foo_Consumer-Foo_Provider.json
+  PACT_FILE: ../pact/Foo_Consumer-Foo_Provider.json
   VERSION_FILE_PATH: foo-provider-version
 run:
    path: microservices-pact/gradlew
