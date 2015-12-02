@@ -9,7 +9,7 @@ inputs:
 params:
     TERM: dumb
 run:
-  path: ./gradlew
-  args:
-  - test
-  - assemble
+  path: ls
+  #args:
+  #- test
+  #- assemble
