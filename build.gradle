@@ -94,6 +94,7 @@ project(':microservices-pact-provider') {
 
     jar {
         baseName = 'microservices-pact-provider'
+        destinationDir = new File("$projectDir/../../provider-libs")
     }
 
     jar.doFirst {
