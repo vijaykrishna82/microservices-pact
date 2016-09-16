@@ -6,6 +6,7 @@ inputs:
 - name: foo-consumer-version
 outputs:
 - path: microservices-pact/microservices-pact-consumer/target/pacts
+- path: microservices-pact-consumer/build/libs
 params:
     TERM: dumb
     VERSION_FILE_PATH: foo-consumer-version
