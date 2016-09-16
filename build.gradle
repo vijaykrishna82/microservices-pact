@@ -36,7 +36,7 @@ allprojects {
 
     task manifestFilter(type: Copy) {
         from 'manifest.yml'
-        into 'versioned-manifest'
+        into new File("$projectDir/../../versioned-manifest")
         expand(version: "${loadVersion.myVersion}")
     }
 

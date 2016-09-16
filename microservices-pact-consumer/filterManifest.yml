@@ -15,4 +15,3 @@ run:
   - :microservices-pact-consumer:manifestFilter
 outputs:
   - name: versioned-manifest
-    path: microservices-pact/microservices-pact-consumer/versioned-manifest
